@@ -1,0 +1,4 @@
+---
+- name: Reload webserver
+  sudo: true
+  service: name=nginx state=restarted

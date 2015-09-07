@@ -1,0 +1,14 @@
+---
+# Source: https://bitbucket.org/willthames/git-ansible-galaxy
+galaxy_info:
+  author:
+  description: Role for nginx
+  license: MIT
+  min_ansible_version: 1.2
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+  categories:
+  - web
+dependencies: []

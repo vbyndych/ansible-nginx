@@ -1,0 +1,52 @@
+user www-data;
+worker_processes {{ nginx.workers }}; #grep processor /proc/cpuinfo | wc -l
+pid /run/nginx.pid;
+
+events {
+    worker_connections {{ nginx.connections_per_worker }}; #ulimit -n
+    multi_accept on;
+}
+
+http {
+
+    ##
+    # Basic Settings
+    ##
+
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    # Allow the server to close the connection after a client stops responding.
+    reset_timedout_connection on;
+    types_hash_max_size 2048;
+
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    ##
+    # Logging Settings
+    ##
+
+    access_log off;
+    error_log /var/log/nginx/error.log;
+
+    ##
+    # Gzip Settings
+    ##
+
+    gzip on;
+    gzip_static on; # only if compiled with this module
+    gzip_disable "msie6";
+    gzip_min_length 1000;
+    gzip_types text/plain text/html text/css application/x-javascript application/octet-stream;
+
+
+    ##
+    # Virtual Host Configs
+    ##
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+}

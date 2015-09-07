@@ -1,0 +1,10 @@
+---
+nginx:
+  workers: 1 #grep processor /proc/cpuinfo | wc -l
+  connections_per_worker: 1024 #ulimit -n
+
+  cache: false
+  host: example.com
+  root: /srv/example
+  template: "default_config.j2"
+

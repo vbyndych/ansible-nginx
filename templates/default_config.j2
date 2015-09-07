@@ -1,0 +1,19 @@
+server {
+    listen       80;
+    server_name  {{ nginx.host }} www.{{ nginx.host }};
+    root {{ nginx.root }}/;
+    index  index.html;
+
+    {% if nginx.cache %}
+    expires 1d;
+    location ~ \.(js|css|jpg|gif|png|ttf) {
+        expires max;
+    }
+    add_header Pragma "public";
+    add_header Cache-Control "public";
+    {% else %}
+    sendfile off;
+    expires -1;
+    {% endif %}
+}
+
